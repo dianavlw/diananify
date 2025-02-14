@@ -40,7 +40,6 @@ npm run dev
 🚚 Order Tracking System – Live tracking of shipped orders.
 🔔 Real-time Notifications – Alerts for orders, discounts, and promotions.
 📝 Admin Dashboard – Manage users, orders, and inventory.
->>>>>>> 92c90b7 (Initial commit for Diananify)
 🌍 Multi-language Support – Expand accessibility for global users.
 
 🤝 Contributing
