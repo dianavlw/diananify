@@ -1,20 +1,34 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
 require("dotenv").config();
+console.log("JWT SECRET:", process.env.JWT_SECRET);
+
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 4000;
+const User = require("./models/User"); // Import User model
 
+app.get("/clear-users", async (req, res) => {
+    await User.deleteMany({});
+    res.send("✅ All users deleted!");
+});
+
+// ✅ Middleware (Must be before routes)
+app.use(express.json());  // Allows JSON parsing
+app.use(cors());  // Enables CORS for frontend requests
+
+// ✅ Import & Use Routes
+const authRoutes = require("./routes/authRoutes"); // Correct import path
+app.use("/api/auth", authRoutes); // ✅ Base path for authentication routes
+
+// ✅ Connect to MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("✅ MongoDB Connected"))
+.catch(err => console.error("❌ MongoDB Connection Error:", err));
 
-app.get("/api/products", (req, res) => {
-  res.json([{ id: 1, name: "Product A", price: 29.99 }, { id: 2, name: "Product B", price: 49.99 }]);
-});
-
-app.listen(5000, () => console.log("Server running on port 5000"));
-
+// ✅ Start Server
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
