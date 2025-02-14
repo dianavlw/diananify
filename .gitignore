@@ -4,3 +4,6 @@ node_modules/
 middleware/
 models/
 routes/
+dist/
+.DS_Store
+.env
