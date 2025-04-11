@@ -26,6 +26,7 @@ export default function Register() {
 
   return (
     <div>
+      <h1> Registration Page</h1>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <input
